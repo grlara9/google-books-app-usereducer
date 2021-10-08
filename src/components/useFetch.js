@@ -17,6 +17,12 @@ function reducer(state, action){
             return{loading: true, games:[]}
         case ACTIONS.GET_DATA:
             return { ...state, loading: false, games: action.payload.games };
+        case ACTIONS.ERROR:
+            return {...state, loading:false, game:[], error:action.payload.error}
+        case ACTIONS.NEXT_PAGE:
+            return{...state, hasNextPage: action.payload.hasNextPage};
+        default :
+            return state
     }
 }
 

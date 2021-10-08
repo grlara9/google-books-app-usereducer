@@ -27,5 +27,6 @@ function reducer(state, action){
 }
 
 const useFetch = (params, page) => {
-return <div></div>
+  const [state, dispatch] = useReducer(reducer, {loading: true, games:[]})
+return state
 }

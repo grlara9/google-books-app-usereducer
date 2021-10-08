@@ -15,6 +15,8 @@ function reducer(state, action){
     switch(action.type){
         case ACTIONS.MAKE.REQUEST:
             return{loading: true, games:[]}
+        case ACTIONS.GET_DATA:
+            return { ...state, loading: false, games: action.payload.games };
     }
 }
 

@@ -28,5 +28,10 @@ function reducer(state, action){
 
 const useFetch = (params, page) => {
   const [state, dispatch] = useReducer(reducer, {loading: true, games:[]})
+
+    useEffect(()=>{
+
+    }, [params, page]);
+
 return state
 }

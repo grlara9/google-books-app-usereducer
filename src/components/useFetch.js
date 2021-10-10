@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useReducer, useEffect} from 'react'
 import axios from 'axios'
 
 
-const BASE_URL = "https://cors-anywhere.herokuapp.com/https://www.cheapshark.com/api/1.0/deals?storeID=1&pageSize=5";
+const BASE_URL = "https://www.cheapshark.com/api/1.0/deals?storeID=1&pageSize=5";
 
 const ACTIONS = {
     MAKE_REQUEST: "make-request",
@@ -13,8 +13,8 @@ const ACTIONS = {
 
 function reducer(state, action){
     switch(action.type){
-        case ACTIONS.MAKE.REQUEST:
-            return{loading: true, games:[]}
+        case ACTIONS.MAKE_REQUEST:
+            return {loading: true, games:[]}
         case ACTIONS.GET_DATA:
             return { ...state, loading: false, games: action.payload.games };
         case ACTIONS.ERROR:
@@ -26,7 +26,7 @@ function reducer(state, action){
     }
 }
 
-const useFetch = (params, page) => {
+ const useFetch = (params, page) => {
   const [state, dispatch] = useReducer(reducer, {loading: true, games:[]})
 
     useEffect(()=>{
@@ -44,3 +44,5 @@ const useFetch = (params, page) => {
 
 return state
 }
+
+export default useFetch

@@ -30,7 +30,16 @@ const useFetch = (params, page) => {
   const [state, dispatch] = useReducer(reducer, {loading: true, games:[]})
 
     useEffect(()=>{
-
+        dispatch({type: ACTIONS.MAKE_REQUEST});
+        axios.get(BASE_URL, {
+            params: {...params},
+        })
+        .then((res) => {
+            dispatch({type: ACTIONS.GET_DATA, payload: {games: res.data}})
+        })
+        .catch((e)=>{
+            dispatch({type: ACTIONS.ERROR, payload: {error:e}})
+        })
     }, [params, page]);
 
 return state

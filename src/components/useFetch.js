@@ -4,6 +4,11 @@ import axios from 'axios'
 
 const BASE_URL = "https://www.cheapshark.com/api/1.0/deals?storeID=1&pageSize=5";
 
+const initialState = {
+    loading:true,
+    games: []
+}
+
 const ACTIONS = {
     MAKE_REQUEST: "make-request",
     GET_DATA: "get-data",
@@ -27,7 +32,7 @@ function reducer(state, action){
 }
 
  const useFetch = (params, page) => {
-  const [state, dispatch] = useReducer(reducer, {loading: true, games:[]})
+  const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(()=>{
         dispatch({type: ACTIONS.MAKE_REQUEST});

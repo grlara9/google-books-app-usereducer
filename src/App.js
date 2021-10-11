@@ -12,7 +12,8 @@ function App() {
 
   return (
     <div className="App">
-     <h1>hola</h1>
+     {loading && <h1>Loading...</h1>}
+     {error && <h1>{error.message}</h1>}
     </div>
   );
 }

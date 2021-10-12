@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import useFetch from './components/useFetch'
 
+import Form from './components/Form'
 function App() {
 
   const [params, setParams] = useState({})

@@ -35,16 +35,22 @@ function reducer(state, action){
   const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(()=>{
+        const cancelToken1 = axios.CancelToken.source();
         dispatch({type: ACTIONS.MAKE_REQUEST});
         axios.get(BASE_URL, {
+            cancelToken: cancelToken1.token,
             params: {...params},
         })
         .then((res) => {
             dispatch({type: ACTIONS.GET_DATA, payload: {games: res.data}})
         })
         .catch((e)=>{
-            dispatch({type: ACTIONS.ERROR, payload: {error:e}})
+            if (axios.isCancel(e)) return;
+            dispatch({ type: ACTIONS.ERROR, payload: { error: e } });
         })
+        return()=>{
+            cancelToken1.cancel();
+        }
     }, [params, page]);
 
 return state

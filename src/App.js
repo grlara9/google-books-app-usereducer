@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import useFetch from './components/useFetch'
 
 import Form from './components/Form'
+import Game from './components/Game'
 function App() {
 
   const [params, setParams] = useState({})
@@ -25,6 +26,9 @@ function App() {
       <Form params={params} onParamChange={handleParamsChange} />
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
+     {games.map((game)=>{
+       return <Game key={game.steamAppID} game={game} />
+     })}
     </div>
   );
 }

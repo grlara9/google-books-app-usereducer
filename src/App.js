@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import useFetch from './components/useFetch'
-
+import Pagination from './components/Pagination'
 import Form from './components/Form'
 import Game from './components/Game'
 function App() {
@@ -24,11 +24,13 @@ function App() {
   return (
     <div className="App">
       <Form params={params} onParamChange={handleParamsChange} />
+      <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
      {games.map((game)=>{
        return <Game key={game.steamAppID} game={game} />
      })}
+     <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
     </div>
   );
 }

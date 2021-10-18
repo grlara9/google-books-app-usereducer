@@ -48,6 +48,23 @@ function reducer(state, action){
             if (axios.isCancel(e)) return;
             dispatch({ type: ACTIONS.ERROR, payload: { error: e } });
         })
+
+        const cancelToken2 = axios.CancelToken.source();
+    axios
+      .get(BASE_URL, {
+        cancelToken: cancelToken2.token,
+        params: { pageNumber: page + 1, ...params },
+      })
+      .then((res) => {
+        dispatch({
+          type: ACTIONS.NEXT_PAGE,
+          payload: { hasNextPage: res.data.length !== 0 },
+        });
+      })
+      .catch((e) => {
+        if (axios.isCancel(e)) return;
+        dispatch({ type: ACTIONS.ERROR, payload: { error: e } });
+      });
         return()=>{
             cancelToken1.cancel();
         }

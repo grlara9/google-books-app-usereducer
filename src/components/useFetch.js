@@ -2,7 +2,7 @@ import React, {useReducer, useEffect} from 'react'
 import axios from 'axios'
 
 
-const BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q';
+
 
 const initialState = {
     loading:true,
@@ -37,9 +37,9 @@ function reducer(state, action){
     useEffect(()=>{
         const cancelToken1 = axios.CancelToken.source();
         dispatch({type: ACTIONS.MAKE_REQUEST});
-        axios.get(BASE_URL, {
-            cancelToken: cancelToken1.token,
-            params: {...params},
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}`, {
+            cancelToken: cancelToken1.token
+            
         })
         .then((res) => {
             dispatch({type: ACTIONS.GET_DATA, payload: {games: res.data}})
@@ -51,7 +51,7 @@ function reducer(state, action){
 
         const cancelToken2 = axios.CancelToken.source();
     axios
-      .get(BASE_URL, {
+      .get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}`, {
         cancelToken: cancelToken2.token,
         params: { pageNumber: page + 1, ...params },
       })

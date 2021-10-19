@@ -27,9 +27,7 @@ function App() {
       <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
-     {games.map((game)=>{
-       return <Game key={game.steamAppID} game={game} />
-     })}
+     
      <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
     </div>
   );

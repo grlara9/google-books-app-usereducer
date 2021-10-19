@@ -2,7 +2,7 @@ import React, {useReducer, useEffect} from 'react'
 import axios from 'axios'
 
 
-const BASE_URL = "https://www.cheapshark.com/api/1.0/deals?storeID=1&pageSize=40";
+const BASE_URL = 'https://www.googleapis.com/books/v1/volumes?q';
 
 const initialState = {
     loading:true,

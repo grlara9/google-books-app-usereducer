@@ -8,7 +8,7 @@ function App() {
 
   const [params, setParams] = useState({})
   const [page, setPage] = useState(1)
-  const {games, loading, error} = useFetch(params, page)
+  const {games, loading, error, hasNextPage} = useFetch(params, page)
 
   console.log(games, loading, params)
 

@@ -37,7 +37,7 @@ function reducer(state, action){
     useEffect(()=>{
         const cancelToken1 = axios.CancelToken.source();
         dispatch({type: ACTIONS.MAKE_REQUEST});
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}`, {
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=40`, {
             cancelToken: cancelToken1.token
         })
         .then((res) => {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Card , Badge, Button, Collapse } from 'react-bootstrap'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
+import {Card , Button, Collapse } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
 const Books = ({ book }) => {
 
@@ -11,14 +12,17 @@ const Books = ({ book }) => {
          <div className="d-flex justify-content-between">
             <div>
                 <Card.Title>
-                  <h3>{book.volumeInfo.title} </h3>
+                  <h2>{book.volumeInfo.title} </h2>
                 </Card.Title>
+                <Card.Text>{book.volumeInfo.subtitle} </Card.Text>
                 <Card.Subtitle className="text-muted mb-2">
                   <span className="text-muted font-weight-light mr-2">by {book.volumeInfo.authors }</span> | {new Date(book.volumeInfo.publishedDate).toLocaleDateString()}
                 </Card.Subtitle>
-                <Badge><span color="black">{book.volumeInfo.categories}</span></Badge>
+               <span color="black">{book.volumeInfo.categories}</span>
                 <div>
-                  <ReactMarkdown className="mr-2">{book.volumeInfo.previewLink}</ReactMarkdown>
+                  
+                 {book.volumeInfo.infoLink}
+                
                 </div>
             </div>
             <img className="d-none d-md-block" height="150"src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101065/112815953-no-image-available-icon-flat-vector.jpg"}/>

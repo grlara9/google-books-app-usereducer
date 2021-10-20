@@ -28,7 +28,7 @@ function App() {
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
      {books.map((book)=>{
-       return <Game book={book}/>
+       return <Game key={book.id} book={book}/>
      })}
      <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
     </div>

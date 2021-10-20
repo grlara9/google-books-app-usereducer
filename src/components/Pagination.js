@@ -2,8 +2,14 @@ import React from 'react'
 import { Pagination } from 'react-bootstrap'
 
 
+
+
 export default function GamesPagination({ page, setPage, hasNextPage }) {
-return(
+    const adjustPage = (amount) => {
+        setPage((prevPage) => prevPage + amount);
+    };
+    
+    return(
     <Pagination>
          {page !== 0 && <Pagination.Prev onClick={() => adjustPage(-1)} />}
       {page !== 0 && (

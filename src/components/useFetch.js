@@ -38,7 +38,8 @@ function reducer(state, action){
         const cancelToken1 = axios.CancelToken.source();
         dispatch({type: ACTIONS.MAKE_REQUEST});
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=40`, {
-            cancelToken: cancelToken1.token
+            cancelToken: cancelToken1.token,
+            params:{pageNumber: page}
         })
         .then((res) => {
             dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data.items}})
@@ -52,7 +53,7 @@ function reducer(state, action){
     axios
       .get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}`, {
         cancelToken: cancelToken2.token,
-        params: { pageNumber: page + 1, ...params },
+        params: { pageNumber: page + 1 },
       })
       .then((res) => {
         dispatch({

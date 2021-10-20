@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const initialState = {
     loading:true,
-    games: []
+    books: []
 }
 
 const ACTIONS = {
@@ -19,11 +19,11 @@ const ACTIONS = {
 function reducer(state, action){
     switch(action.type){
         case ACTIONS.MAKE_REQUEST:
-            return {loading: true, games:[]}
+            return {loading: true, books:[]}
         case ACTIONS.GET_DATA:
-            return { ...state, loading: false, games: action.payload.games };
+            return { ...state, loading: false, books: action.payload.books };
         case ACTIONS.ERROR:
-            return {...state, loading:false, game:[], error:action.payload.error}
+            return {...state, loading:false, books:[], error:action.payload.error}
         case ACTIONS.NEXT_PAGE:
             return{...state, hasNextPage: action.payload.hasNextPage};
         default :
@@ -39,10 +39,9 @@ function reducer(state, action){
         dispatch({type: ACTIONS.MAKE_REQUEST});
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}`, {
             cancelToken: cancelToken1.token
-            
         })
         .then((res) => {
-            dispatch({type: ACTIONS.GET_DATA, payload: {games: res.data}})
+            dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data.items}})
         })
         .catch((e)=>{
             if (axios.isCancel(e)) return;

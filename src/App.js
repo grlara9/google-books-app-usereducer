@@ -8,9 +8,9 @@ function App() {
 
   const [params, setParams] = useState({})
   const [page, setPage] = useState(1)
-  const {games, loading, error, hasNextPage} = useFetch(params, page)
+  const {books, loading, error, hasNextPage} = useFetch(params, page)
 
-  console.log(games, loading, params)
+  console.log(books, loading, params)
 
 
   const handleParamsChange = (e)=>{
@@ -27,7 +27,9 @@ function App() {
       <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
-     
+     {books.map((book)=>{
+       return <Game book={book}/>
+     })}
      <Pagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
     </div>
   );

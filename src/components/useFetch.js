@@ -1,9 +1,6 @@
 import React, {useReducer, useEffect} from 'react'
 import axios from 'axios'
 
-
-
-
 const initialState = {
     loading:true,
     books: []
@@ -37,9 +34,9 @@ function reducer(state, action){
     useEffect(()=>{
         const cancelToken1 = axios.CancelToken.source();
         dispatch({type: ACTIONS.MAKE_REQUEST});
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=40`, {
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=30`, {
             cancelToken: cancelToken1.token,
-            params:{pageNumber: page}
+            
         })
         .then((res) => {
             dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data.items}})
@@ -51,14 +48,14 @@ function reducer(state, action){
 
         const cancelToken2 = axios.CancelToken.source();
     axios
-      .get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}`, {
+      .get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=30`, {
         cancelToken: cancelToken2.token,
-        params: { pageNumber: page + 1 },
+        
       })
       .then((res) => {
         dispatch({
-          type: ACTIONS.NEXT_PAGE,
-          payload: { hasNextPage: res.data.length !== 0 },
+          type: ACTIONS.GET_DATA,
+          payload: {books: res.data.items },
         });
       })
       .catch((e) => {
@@ -67,6 +64,7 @@ function reducer(state, action){
       });
         return()=>{
             cancelToken1.cancel();
+            cancelToken2.cancel();
         }
     }, [params, page]);
 

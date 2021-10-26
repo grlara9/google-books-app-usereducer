@@ -1,7 +1,16 @@
+form{
+    display:flex;
+    justify-content: center;
+    margin-bottom: 12px;
+
+}
 input[type=text]{
-    width: 100%;
-    padding: 12px 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    
+    font-size: inherit;
+    padding: 1em 0 8px;
+    margin-bottom: 2px;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    width: 30%;
+    margin-bottom: 10px;
 }

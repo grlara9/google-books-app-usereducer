@@ -13,6 +13,8 @@ const ACTIONS = {
     NEXT_PAGE: "next-page",
   };
 
+  const BASE_URL="https://www.omdbapi.com/?s=avenger&apikey=709d62e0";
+
 function reducer(state, action){
     switch(action.type){
         case ACTIONS.MAKE_REQUEST:
@@ -34,12 +36,12 @@ function reducer(state, action){
     useEffect(()=>{
         const cancelToken1 = axios.CancelToken.source();
         dispatch({type: ACTIONS.MAKE_REQUEST});
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=30`, {
+        axios.get(BASE_URL, {
             cancelToken: cancelToken1.token,
-            
+            params: {page: page, ...params}
         })
         .then((res) => {
-            dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data.items}})
+            dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data}})
         })
         .catch((e)=>{
             if (axios.isCancel(e)) return;
@@ -48,14 +50,14 @@ function reducer(state, action){
 
         const cancelToken2 = axios.CancelToken.source();
     axios
-      .get(`https://www.googleapis.com/books/v1/volumes?q=${params.intitle}+inauthor:${params.inauthor}&maxResults=30`, {
+      .get(BASE_URL, {
         cancelToken: cancelToken2.token,
-        
+        params: {page: page + 1, ...params}
       })
       .then((res) => {
         dispatch({
-          type: ACTIONS.GET_DATA,
-          payload: {books: res.data.items },
+          type: ACTIONS.NEXT_PAGE,
+          payload: {hasNextPage: res.data.length !== 0 },
         });
       })
       .catch((e) => {

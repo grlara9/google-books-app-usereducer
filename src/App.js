@@ -23,20 +23,13 @@ function App() {
     })
   }
 
-const indexOfLastPost = page * postsPerPage;
-const indexOfFirstPost = indexOfLastPost - postsPerPage;
-const book = books.slice(indexOfFirstPost, indexOfLastPost);
-
-console.log("this", book)
   return (
     <div className="App">
       <Form params={params} onParamChange={handleParamsChange} />
      
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
-     {books.map((book)=>{
-       return <Game key={book.id} book={book}/>
-     })}
+     
     
     </div>
   );

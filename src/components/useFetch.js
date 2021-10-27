@@ -13,8 +13,8 @@ const ACTIONS = {
     NEXT_PAGE: "next-page",
   };
 
-  const BASE_URL="https://www.omdbapi.com/?s=avenger&apikey=709d62e0";
-
+  const BASE_URL="https://www.omdbapi.com/?s=avenger&apikey=709d62e0&";
+  const API_KEY = "709d62e0"
 function reducer(state, action){
     switch(action.type){
         case ACTIONS.MAKE_REQUEST:
@@ -38,7 +38,7 @@ function reducer(state, action){
         dispatch({type: ACTIONS.MAKE_REQUEST});
         axios.get(BASE_URL, {
             cancelToken: cancelToken1.token,
-            params: {page: page, ...params}
+            params: {page: page}
         })
         .then((res) => {
             dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data}})
@@ -50,9 +50,9 @@ function reducer(state, action){
 
         const cancelToken2 = axios.CancelToken.source();
     axios
-      .get(BASE_URL, {
+      .get(`https://www.omdbapi.com/?s=${params.s}&apikey=${API_KEY}`, {
         cancelToken: cancelToken2.token,
-        params: {page: page + 1, ...params}
+        params: {page: page + 1}
       })
       .then((res) => {
         dispatch({

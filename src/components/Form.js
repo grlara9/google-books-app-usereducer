@@ -3,7 +3,7 @@ import './Form.css'
 const Form =({params, onParamChange})=>{
    return(
        <form>
-           <input type="text" onChange={onParamChange} value={params.s} name='s' placeholder="Title"/>
+           <input type="text" onChange={onParamChange} value={params.intitle} name='intitle' placeholder="Title"/>
           
 
            

@@ -8,10 +8,9 @@ function App() {
 
   const [params, setParams] = useState({})
   const [page, setPage] = useState(1)
-  const [postsPerPage, setPostsPerPage] = useState(5)
   const {books, loading, error, hasNextPage} = useFetch(params, page)
 
-  console.log(books, loading, params)
+  console.log("hola", books, loading, params)
 
 
   const handleParamsChange = (e)=>{
@@ -29,7 +28,7 @@ function App() {
      
      {loading && <h1>Loading...</h1>}
      {error && <h1>{error.message}</h1>}
-     
+    
     
     </div>
   );

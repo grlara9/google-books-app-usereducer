@@ -13,22 +13,22 @@ const ACTIONS = {
     NEXT_PAGE: "next-page",
   };
 
-  const BASE_URL="https://www.omdbapi.com/?s=avenger&apikey=709d62e0&";
-  const API_KEY = "709d62e0"
-function reducer(state, action){
-    switch(action.type){
-        case ACTIONS.MAKE_REQUEST:
-            return {loading: true, books:[]}
-        case ACTIONS.GET_DATA:
-            return { ...state, loading: false, books: action.payload.books };
-        case ACTIONS.ERROR:
-            return {...state, loading:false, books:[], error:action.payload.error}
-        case ACTIONS.NEXT_PAGE:
-            return{...state, hasNextPage: action.payload.hasNextPage};
-        default :
-            return state
-    }
-}
+  
+  function reducer(state, action){
+      switch(action.type){
+          case ACTIONS.MAKE_REQUEST:
+              return {loading: true, books:[]}
+              case ACTIONS.GET_DATA:
+                  return { ...state, loading: false, books: action.payload.books };
+                  case ACTIONS.ERROR:
+                      return {...state, loading:false, books:[], error:action.payload.error}
+                      case ACTIONS.NEXT_PAGE:
+                          return{...state, hasNextPage: action.payload.hasNextPage};
+                          default :
+                          return state
+                        }
+                    }
+                    const BASE_URL="https://www.googleapis.com/books/v1/volumes?";
 
  const useFetch = (params, page) => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -38,7 +38,12 @@ function reducer(state, action){
         dispatch({type: ACTIONS.MAKE_REQUEST});
         axios.get(BASE_URL, {
             cancelToken: cancelToken1.token,
-            params: {page: page}
+            params: {
+                
+                intitle: 'titanic',
+                startIndex: 0,
+                maxResults: 40,
+                 }
         })
         .then((res) => {
             dispatch({type: ACTIONS.GET_DATA, payload: {books: res.data}})
@@ -50,9 +55,12 @@ function reducer(state, action){
 
         const cancelToken2 = axios.CancelToken.source();
     axios
-      .get(`https://www.omdbapi.com/?s=${params.s}&apikey=${API_KEY}`, {
+      .get(BASE_URL, {
         cancelToken: cancelToken2.token,
-        params: {page: page + 1}
+        params: {
+           
+            page: page + 1
+        }
       })
       .then((res) => {
         dispatch({
